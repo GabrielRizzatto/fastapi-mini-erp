@@ -2,8 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from fastapi import APIRouter, Depends, HTTPException,status
-from models.user import User
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_session
 from schemas.user_schema import UserSchema
@@ -18,3 +17,4 @@ async def create_user(usuario_schema: UserSchema, session : Session = Depends(ge
 
     return {"message": "User created successfully", "email": new_user.email}
 
+    
