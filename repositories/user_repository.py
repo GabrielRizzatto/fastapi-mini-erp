@@ -10,3 +10,5 @@ def save_user(user: User, session: Session):
     session.refresh(user)
     return user
 
+def get_user_by_id(id : int, session: Session):
+    return session.query(User).filter(User.id == id).first()

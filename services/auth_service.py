@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from models.user import User
 from schemas.user_schema import UserSchema
 from schemas.login_schema import LoginSchema
-from security import bcrypt_context, create_access_token
+from security import bcrypt_context, create_access_token, create_refresh_token, get_current_user
 from repositories.user_repository import save_user, get_user_by_email 
 
 def create_user_service(usuario_schema: UserSchema, session: Session):
@@ -40,6 +40,14 @@ def login_service(login_schema : LoginSchema, session : Session):
     
     else:
         access_token = create_access_token(user.id)
+        refresh_token = create_refresh_token(user.id)
 
+    return {"access_token" : access_token,
+            "refresh_token": refresh_token,
+            "token_type" : "Bearer"}
+
+def refresh_token_service(user: User):
+    access_token = create_access_token(user.id)
+        
     return {"access_token" : access_token,
             "token_type" : "Bearer"}
