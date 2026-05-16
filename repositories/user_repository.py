@@ -9,3 +9,4 @@ def save_user(user: User, session: Session):
     session.commit()
     session.refresh(user)
     return user
+

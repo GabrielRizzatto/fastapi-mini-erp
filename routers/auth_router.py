@@ -6,7 +6,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_session
 from schemas.user_schema import UserSchema
-from services.auth_service import create_user_service
+from schemas.login_schema import LoginSchema
+from services.auth_service import create_user_service, login_service
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -17,4 +18,6 @@ async def create_user(usuario_schema: UserSchema, session : Session = Depends(ge
 
     return {"message": "User created successfully", "email": new_user.email}
 
-    
+@auth_router.post("/login")
+async def login(login_schema: LoginSchema, session : Session = Depends(get_session)):
+    return login_service(login_schema, session)

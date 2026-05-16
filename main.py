@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from routers.auth_router import auth_router
 from database import engine, Base
-from models import user
+from models import user, product
 
 import sys
 import os
